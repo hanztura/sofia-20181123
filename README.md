@@ -3,12 +3,12 @@
 
 ## Get started
 	* install required libraries
-		```bash
-		pip3 install -r requirements.txt
+```bash
+	pip3 install -r requirements.txt
 
-		# if error on pip3, run this instead
-		pip install -r requirements.txt
-		```
+	# if error on pip3, run this instead
+	pip install -r requirements.txt
+```
 
 	* run python scripts like:
 		* colored_bubbles.py
