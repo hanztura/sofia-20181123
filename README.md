@@ -11,5 +11,7 @@
 ```
 
 	* run python scripts like:
-		* colored_bubbles.py
-		* image_tiling.py
+		* e07_01_fun_with_matrix.py
+		* e07_02_lc_display.py
+		* e09_01_image_tiling.py
+		* e09_02_colored_bubbles.py

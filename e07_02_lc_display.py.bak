@@ -1,0 +1,184 @@
+number_matrices = (
+    [
+        [' ', '-', ' '],
+        ['|', ' ', '|'],
+        [' ', ' ', ' '],
+        ['|', ' ', '|'],
+        [' ', '-', ' '],
+    ],  # 0
+    [
+        [' ', ' ', ' '],
+        [' ', ' ', '|'],
+        [' ', ' ', ' '],
+        [' ', ' ', '|'],
+        [' ', ' ', ' '],
+    ],  # 1
+    [
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', '-', ' '],
+        ['|', ' ', ' '],
+        [' ', '-', ' '],
+    ],  # 2
+    [
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', '-', ' '],
+    ],  # 3
+    [
+        [' ', ' ', ' '],
+        ['|', ' ', '|'],
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', ' ', ' '],
+    ],  # 4
+    [
+        [' ', '-', ' '],
+        ['|', ' ', ' '],
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', '-', ' '],
+    ],  # 5
+    [
+        [' ', '-', ' '],
+        ['|', ' ', ' '],
+        [' ', '-', ' '],
+        ['|', ' ', '|'],
+        [' ', '-', ' '],
+    ],  # 6,
+    [
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', ' ', ' '],
+        [' ', ' ', '|'],
+        [' ', ' ', ' '],
+    ],  # 7
+    [
+        [' ', '-', ' '],
+        ['|', ' ', '|'],
+        [' ', '-', ' '],
+        ['|', ' ', '|'],
+        [' ', '-', ' '],
+    ],  # 8
+    [
+        [' ', '-', ' '],
+        ['|', ' ', '|'],
+        [' ', '-', ' '],
+        [' ', ' ', '|'],
+        [' ', '-', ' '],
+    ],  # 9
+)
+
+
+def print_number_in_a_matrix(number_matrix):
+    for row in number_matrix:
+        string = ''.join(row)
+        print(string)
+
+
+def compute_column_and_rows(size):
+    """
+    Computes the column and rows of a number matrix based on a given size.
+
+    Returns a (columns, rows) Tuple.
+    """
+    columns = size + 2
+    rows = (2 * size) + 3
+    return (columns, rows)
+
+
+def get_mid_index_of_list(_list):
+    length = len(_list)
+    mid = (length + 1) // 2
+    has_two_mids = bool((length + 1) % 2)
+    mid_index = mid - 1
+
+    if has_two_mids:
+        return (mid_index, mid)
+
+    return mid_index
+
+
+def scale_a_number_matrix(number_matrix, size=1):
+    number_matrix = number_matrix.copy()
+
+    if size < 1:
+        size = 1
+
+    columns, rows = compute_column_and_rows(size)
+
+    # scale middle value of all rows
+    for row in number_matrix:
+        # get middle part of the row
+        row[1:-1] *= (columns - 2)
+
+    # scale NOT (first, mid, last) rows
+    second_first, second_last = number_matrix[1], number_matrix[-2]
+
+    for i in range((rows - 3 - 2) // 2):
+        number_matrix.insert(1, second_first)
+        number_matrix.insert(-1, second_last)
+
+    return number_matrix
+
+
+def get_numbers__matrix(numbers, base_matrix, scale_size=1):
+    numbers = str(numbers)
+    numbers = [int(x) for x in numbers]
+    numbers_matrices = numbers.copy()
+
+    for i, num in enumerate(numbers):
+        matrix = base_matrix[num]
+        matrix = scale_a_number_matrix(matrix, scale_size)
+        numbers_matrices[i] = matrix
+
+    return numbers_matrices
+
+
+def combine_matrices(matrices, separator=" "):
+    # combined_matrix = matrices[0].copy()
+    # matrices_except_first = matrices[1:]
+
+    # for matrix in matrices_except_first:
+    #     for i, row in enumerate(matrix):
+    #         combined_matrix[i] += [separator]
+    #         combined_matrix[i] += row
+
+    combined_matrix = matrices[0].copy()  # populate values
+
+    for i, matrix in enumerate(matrices):
+        for j, row in enumerate(matrix):
+            if i <= 0:
+                combined_matrix[j] = []
+            else:
+                combined_matrix[j] += [separator]
+            combined_matrix[j] += row
+
+    return combined_matrix
+
+
+# input
+inputs = []
+while True:
+    user_input = input()
+    if user_input == '0 0':
+        break
+    else:
+        user_input = user_input.split()
+        inputs.append(user_input)
+
+# output
+for user_input in inputs:
+    size = int(user_input[0])
+    numbers = int(user_input[1])
+
+    # scale number matrix based on column and rows
+    numbers_matrices = get_numbers__matrix(
+        numbers, number_matrices, scale_size=size
+    )
+    combined_numbers_matrix = combine_matrices(numbers_matrices)
+
+    print_number_in_a_matrix(combined_numbers_matrix)
+    print()
