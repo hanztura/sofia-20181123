@@ -8,7 +8,7 @@ from models import Bubble
 
 window = Window()
 bubbles = []
-WINDOW_WIDTH, WINDOW_HEIGHT = window.width, window.height 
+WINDOW_WIDTH, WINDOW_HEIGHT = window.width, window.height
 
 
 def update(dt):
