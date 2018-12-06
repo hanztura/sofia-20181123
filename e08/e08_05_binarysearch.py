@@ -54,8 +54,10 @@ def go():
     for i, value in enumerate(words_to_be_searched):
         text_to_write.append(binary_search(list_of_words, value))
 
+    text_to_write = '\n'.join(text_to_write)
+    print(text_to_write)
     with open('listofwords.txt', 'w') as f:
-        f.write('\n'.join(text_to_write))
+        f.write(text_to_write)
 
 
 if __name__ == '__main__':
