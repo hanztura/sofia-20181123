@@ -1,12 +1,24 @@
 def bubble_sort(A):
     A = A.copy()
     max_index = len(A) - 1
+    iteration = 0
 
-    for i, value in enumerate(A):
-        if (i + 1) <= max_index:
-            if A[i] > A[i + 1]:
-                A[i] = A[i + 1]
-                A[i + 1] = value
+    while True:
+        swaps = 0
+        iteration += 1
+
+        for i, value in enumerate(A):
+            if (i + 1) <= max_index:
+                if A[i] > A[i + 1]:
+                    swaps += 1
+                    A[i] = A[i + 1]
+                    A[i + 1] = value
+
+        if iteration % 4 == 0:
+            print(A)
+
+        if swaps <= 0:
+            break
 
     return A
 

@@ -2,6 +2,7 @@
 def selection_sort(A):
     A = A.copy()
     array_length = len(A)
+    swap_counter = 0
 
     for i in range(array_length - 1):
         current_value = A[i]
@@ -18,6 +19,8 @@ def selection_sort(A):
         if index_min != i:
             A[i] = A[index_min]
             A[index_min] = current_value
+
+            print(A)
 
     return A
 

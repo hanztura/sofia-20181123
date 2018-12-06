@@ -1,6 +1,7 @@
 # insertion sort
 def insertion_sort(A):
     A = A.copy()
+    swap_counter = 0
     for i, value in enumerate(A):
         # select value to be inserted
         value_to_insert = value
@@ -8,6 +9,11 @@ def insertion_sort(A):
 
         # locate hole position for the element to be inserted
         while (hole_position > 0) and (A[hole_position - 1] > value_to_insert):
+            swap_counter += 1
+            if swap_counter % 3 == 0:
+                log = '{} {}'.format(value_to_insert, A[hole_position - 1])
+                print(log)
+
             A[hole_position] = A[hole_position - 1]
             hole_position -= 1
 
