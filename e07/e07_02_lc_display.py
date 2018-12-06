@@ -104,7 +104,7 @@ class LCDisplay(object):
         return mid_index
 
     def scale_a_number_matrix(self, number_matrix, size=1):
-        number_matrix = number_matrix.copy()
+        _number_matrix = [x.copy() for x in number_matrix]
 
         if size < 1:
             size = 1
@@ -112,18 +112,18 @@ class LCDisplay(object):
         columns, rows = self.compute_column_and_rows(size)
 
         # scale middle value of all rows
-        for row in number_matrix:
+        for row in _number_matrix:
             # get middle part of the row
             row[1:-1] *= (columns - 2)
 
         # scale NOT (first, mid, last) rows
-        second_first, second_last = number_matrix[1], number_matrix[-2]
+        second_first, second_last = _number_matrix[1], _number_matrix[-2]
 
         for i in range((rows - 3 - 2) // 2):
-            number_matrix.insert(1, second_first)
-            number_matrix.insert(-1, second_last)
+            _number_matrix.insert(1, second_first)
+            _number_matrix.insert(-1, second_last)
 
-        return number_matrix
+        return _number_matrix
 
     def get_numbers__matrix(
         self, numbers='default', base_matrix='default', scale_size=1
@@ -132,19 +132,19 @@ class LCDisplay(object):
             numbers = self.numbers
 
         if base_matrix == 'default':
-            base_matrix = self.NUMBER_MATRICES
+            base_matrix = tuple(self.NUMBER_MATRICES)
 
         if scale_size != 1:
             scale_size = self.size
 
         numbers = str(numbers)
         numbers = [int(x) for x in numbers]
-        numbers_matrices = numbers.copy()
+        numbers_matrices = numbers.copy()  # propagate values
 
         for i, num in enumerate(numbers):
-            matrix = base_matrix[num]
-            matrix = self.scale_a_number_matrix(matrix, scale_size)
-            numbers_matrices[i] = matrix
+            matrix = list(base_matrix[num])
+            _matrix = self.scale_a_number_matrix(matrix, scale_size)
+            numbers_matrices[i] = _matrix  # update values
 
         return numbers_matrices
 
