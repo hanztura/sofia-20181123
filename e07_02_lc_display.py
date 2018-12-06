@@ -162,7 +162,7 @@ class LCDisplay(object):
         return combined_matrix
 
     def print_me(self, with_blank_on_end=True):
-        numbers_matrices = self.get_numbers__matrix()
+        numbers_matrices = self.get_numbers__matrix(scale_size=self.size)
         combined_matrix = self.combine_matrices(numbers_matrices)
 
         self.print_number_in_a_matrix(combined_matrix)

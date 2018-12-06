@@ -7,7 +7,7 @@ from models import ImageTiling
 # CONFIG
 SCREEN_LENGTH = 640
 IMAGE_FILENAME = 'image.png'
-NUMBER_OF_REPETITIONS = sys.argv[1]
+NUMBER_OF_REPETITIONS = sys.argv[2]
 
 # check if number of repititions is valid
 while True:
@@ -53,20 +53,29 @@ def on_draw():
     for tiling in tiling_iterations:
         doge = pyglet.image.load(IMAGE_FILENAME)
         image_size = tiling.image_size
-        doge.width = image_size
-        doge.height = image_size
+        dogesprite = pyglet.sprite.Sprite(doge)
+        dogesprite.scale_x = (image_size / doge.width)
+        dogesprite.scale_y = (image_size / doge.height)
 
         q1_coordinate = tiling.quadrant_upper_left_coordinates
         q2_coordinate = tiling.quadrant_lower_left_coordinates
         q3_coordinate = tiling.quadrant_lower_right_coordinates
 
         # print doge image
-        doge.blit(q1_coordinate[0], q1_coordinate[1])
-        doge.blit(q2_coordinate[0], q2_coordinate[1])
-        doge.blit(q3_coordinate[0], q3_coordinate[1])
+        # doge.blit(q1_coordinate[0], q1_coordinate[1])
+        # doge.blit(q2_coordinate[0], q2_coordinate[1])
+        # doge.blit(q3_coordinate[0], q3_coordinate[1])
+        # dogesprite.x = q1_coordinate[0]
+        # dogesprite.y = q1_coordinate[1]
+        dogesprite.position = (q1_coordinate[0], q1_coordinate[1])
+        dogesprite.draw()
+        dogesprite.position = (q2_coordinate[0], q2_coordinate[1])
+        dogesprite.draw()
+        dogesprite.position = (q3_coordinate[0], q3_coordinate[1])
+        dogesprite.draw()
 
-    import pprint
-    pprint.pprint(dir(doge))
+    # import pprint
+    # pprint.pprint(dir(dogesprite))
 
 
 pyglet.app.run()
